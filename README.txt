@@ -1,0 +1,1 @@
+This project is an attempt to create randomized & valid Sudoku boards 

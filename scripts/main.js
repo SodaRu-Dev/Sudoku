@@ -63,7 +63,7 @@ const generateRandomSudoku = () => {
     }
   })
 }
-generateRandomSudoku()
+//generateRandomSudoku()
 
 const displaySudoku = (finalArray) => {
 	finalArray.forEach(row => {
@@ -79,4 +79,4 @@ const displaySudoku = (finalArray) => {
   })
 }
 
-displaySudoku(sudokuArray);
+//displaySudoku(sudokuArray);
