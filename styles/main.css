@@ -1,0 +1,15 @@
+#sudokuBoard {
+	display: flex;
+	width: 220px;
+	border: solid black 1px;
+}
+
+.sudokuRow {
+	width: 100%;
+}
+
+.sudokuColumn {
+	border: solid black 1px;
+	padding: 2px;
+	text-align: center;
+}
