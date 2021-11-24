@@ -1,1 +1,0 @@
-export const writeSomething = () => console.log("Hey I work");
