@@ -18,12 +18,3 @@ export const checkBox = (rowIndex, colIndex, availableNumbers, sudokuArray) => {
     }
     return availableNumbers;
 }
-
-// Checks to see which numbers are present in the same row
-export const checkRow = (availableNumbers, row) => availableNumbers.filter(number => row.every(col => col !== number))
-
-// Checks to see which numbers are present in the same column
-export const checkCol = (col, availableNumbers, sudokuArray) => availableNumbers.filter(number => sudokuArray.every(row => row[col] !== number))
-
-// Used when there is more than 1 availableNumber left; randomly chooses a number
-export const numRandomizer = (array) => array[Math.floor(Math.random()*array.length)];

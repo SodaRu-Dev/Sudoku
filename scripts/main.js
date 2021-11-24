@@ -1,4 +1,4 @@
-import { checkBox, checkRow, checkCol, numRandomizer } from "./functions.js";
+import { checkBox } from "./functions.js";
 
 let defaultRow = [0,0,0,0,0,0,0,0,0];
 
@@ -30,7 +30,7 @@ const generateRandomSudoku = () => {
             
             // ================ ROW ================ 
             // Check what is allowable in the row
-            availableNumbers = checkRow(row, availableNumbers)
+            availableNumbers = availableNumbers.filter(number => row.every(col => col !== number))
 
             if(availableNumbers.length == 1){
                 // break out and assign the number
@@ -40,7 +40,7 @@ const generateRandomSudoku = () => {
             
             // ================  COLUMN ================ 
             // Check what is allowable in the column
-            availableNumbers = checkCol(col, availableNumbers, sudokuArray)
+            availableNumbers = availableNumbers.filter(number => sudokuArray.every(row => row[col] !== number))
             
             if(availableNumbers.length == 1){
                 // break out and assign the number
@@ -50,11 +50,11 @@ const generateRandomSudoku = () => {
             
             // ================ FINAL ================ 
             // With the remaining possible numbers to use, randomly select one and insert it
-            sudokuArray[index][col] = numRandomizer(availableNumbers);
+            sudokuArray[index][col] = availableNumbers[Math.floor(Math.random()*availableNumbers.length)]
         }
     })
 }
-//generateRandomSudoku()
+generateRandomSudoku()
 
 const displaySudoku = (finalArray) => {
     finalArray.forEach(row => {
