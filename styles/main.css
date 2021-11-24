@@ -1,0 +1,24 @@
+#sudokuHeader {
+	text-align: center;
+}
+
+#sudokuBoard {
+	display: flex;
+	width: 219.6px;
+	text-align: center;
+}
+
+.sudokuRow {
+	width: 100%;
+}
+
+.sudokuColumn {
+	border: solid black 1px;
+	padding: 8px;
+	text-align: center;
+}
+
+.centered {
+	margin-left: auto;
+	margin-right: auto;
+}
