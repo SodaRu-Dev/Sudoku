@@ -20,7 +20,7 @@ const generateRandomSudoku = () => {
             // ================  SECTION (BOX) ================ 
             // Check what is allowable in the section
             availableNumbers = checkBox(rowIndex, colIndex, availableNumbers, sudokuArray)
-            
+
             // See if one number remains
             if(availableNumbers.length == 1){
                 // break out and assign the number
@@ -49,8 +49,12 @@ const generateRandomSudoku = () => {
             }
             
             // ================ FINAL ================ 
+            // CURRENT ISSUE HERE: Sometimes ending up with an empty array
             // With the remaining possible numbers to use, randomly select one and insert it
             sudokuArray[index][col] = availableNumbers[Math.floor(Math.random()*availableNumbers.length)]
+            console.log("Randomly Choosing Number")
+            console.log(availableNumbers)
+            console.log(availableNumbers[Math.floor(Math.random()*availableNumbers.length)])
         }
     })
 }
