@@ -1,4 +1,4 @@
-import { checkBox } from "./functions.js";
+import { checkBox, checkRow, getColValues, checkCol } from "./functions.js";
 
 let defaultRow = [0,0,0,0,0,0,0,0,0];
 
@@ -7,6 +7,11 @@ for(let i=0; i<9; i++){
 	sudokuArray.push([...defaultRow]);
 }
 
+// DISCOVERED ISSUE:
+// Looks like checkColumn is not always returning a number that is correct (ex: returning a 7 even though a 7 appeared before in the column)
+// Same for checkRow
+// checkBox appears to be working properly
+
 
 // Sudoku Generator
 const generateRandomSudoku = () => {
@@ -14,47 +19,45 @@ const generateRandomSudoku = () => {
         for(let col = 0; col < 9; col++){
             // Start off with array of available numbers
             let availableNumbers = [1,2,3,4,5,6,7,8,9];
-            let rowIndex = index // Current Row Index
+            let rowIndex = index    // Current Row Index
             let colIndex = col;    // Current Column Index
-        
-            // ================  SECTION (BOX) ================ 
-            // Check what is allowable in the section
-            availableNumbers = checkBox(rowIndex, colIndex, availableNumbers, sudokuArray)
-
-            // See if one number remains
-            if(availableNumbers.length == 1){
-                // break out and assign the number
-                sudokuArray[index][col] = availableNumbers[0];
-                continue
-            }
             
             // ================ ROW ================ 
             // Check what is allowable in the row
-            availableNumbers = availableNumbers.filter(number => row.every(col => col !== number))
+            availableNumbers = checkRow(availableNumbers, row);
 
             if(availableNumbers.length == 1){
                 // break out and assign the number
-                sudokuArray[index][col] = availableNumbers[0];
+                sudokuArray[rowIndex][colIndex] = availableNumbers[0];
             continue
             }
             
             // ================  COLUMN ================ 
             // Check what is allowable in the column
-            availableNumbers = availableNumbers.filter(number => sudokuArray.every(row => row[col] !== number))
+            availableNumbers = checkCol (availableNumbers, getColValues(sudokuArray, colIndex))
             
             if(availableNumbers.length == 1){
                 // break out and assign the number
-                sudokuArray[index][col] = availableNumbers[0];
+                sudokuArray[rowIndex][colIndex] = availableNumbers[0];
             continue
+            }
+
+            // ================  SECTION (BOX) ================ 
+            // Check what is allowable in the section
+            availableNumbers = checkBox(rowIndex, colIndex, availableNumbers, sudokuArray)
+
+             // See if one number remains
+             if(availableNumbers.length == 1){
+                // break out and assign the number
+                sudokuArray[rowIndex][colIndex] = availableNumbers[0];
+                continue
             }
             
             // ================ FINAL ================ 
-            // CURRENT ISSUE HERE: Sometimes ending up with an empty array
             // With the remaining possible numbers to use, randomly select one and insert it
-            sudokuArray[index][col] = availableNumbers[Math.floor(Math.random()*availableNumbers.length)]
-            console.log("Randomly Choosing Number")
-            console.log(availableNumbers)
-            console.log(availableNumbers[Math.floor(Math.random()*availableNumbers.length)])
+            const randomlyGeneratedNumber = availableNumbers[Math.floor(Math.random()*availableNumbers.length)];
+            console.log("Randomly generated number: ", randomlyGeneratedNumber)
+            sudokuArray[rowIndex][colIndex] = randomlyGeneratedNumber;
         }
     })
 }
